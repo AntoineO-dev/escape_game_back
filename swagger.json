@@ -1,0 +1,296 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Escape Game API",
+        "description": "API for escape game management",
+        "version": "1.0"
+    },
+    "produces": [
+        "application/json"
+    ],
+    "host": "127.0.0.1:3000",
+    "basePath": "/",
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "Entrer le token JWT sous la forme 'Bearer token'"
+        }
+    },
+    "security": [
+        {
+            "Bearer": []
+        }
+    ],
+    "paths": {
+        "comment": "Auth",
+        "/auth/login": {
+            "post": {
+                "operationId": "auth_login",
+                "tags": [
+                    "Auth"
+                ],
+                "description": "Connecte un utilisateur",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "token": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "comment": "Clients",
+        "/clients": {
+            "get": {
+               "operationId": "clients_get",
+               "tags": [
+                  "Clients"
+               ],
+               "description": "Récupère la liste de tous les clients",
+               "parameters": [],
+               "responses": {
+                  "200": {
+                     "description": "successful operation",
+                     "schema": {
+                        "type": "array",
+                        "items": {
+                           "type": "object",
+                           "properties": {
+                              "id_client": {
+                                 "type": "integer"
+                              },
+                              "first_name": {
+                                 "type": "string"
+                              },
+                              "last_name": {
+                                 "type": "string"
+                              },
+                              "phone": {
+                                 "type": "string"
+                              },
+                              "registration_date": {
+                                 "type": "string",
+                                 "format": "date-time"
+                              },
+                              "email": {
+                                 "type": "string"
+                              }
+                           }
+                        }
+                     }
+                  },
+                  "404": {
+                     "description": "Not found"
+                  },
+                  "500": {
+                     "description": "Internal server error"
+                  }
+               }
+            }
+        },
+        "/clients/{id}": {
+            "get": {
+               "operationId": "clients_findOne",
+               "tags": [
+                  "Clients"
+               ],
+               "description": "Récupère un client par son ID",
+               "parameters": [
+                  {
+                     "name": "id",
+                     "in": "path",
+                     "required": true,
+                     "type": "integer"
+                  }
+               ],
+               "responses": {
+                  "200": {
+                     "description": "successful operation",
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "first_name": {
+                              "type": "string"
+                           },
+                           "last_name": {
+                              "type": "string"
+                           },
+                           "phone": {
+                              "type": "string"
+                           },
+                           "registration_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "email": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  },
+                  "404": {
+                     "description": "Not found"
+                  },
+                  "500": {
+                     "description": "Internal server error"
+                  }
+               }
+            }
+        },
+        "/clients/reservation/{id}": {
+            "get": {
+               "operationId": "clients_reservation",
+               "tags": [
+                  "Clients"
+               ],
+               "description": "Récupère les réservations d'un client par son ID",
+               "parameters": [
+                  {
+                     "name": "id",
+                     "in": "path",
+                     "required": true,
+                     "type": "integer"
+                  }
+               ],
+               "responses": {
+                  "200": {
+                     "description": "successful operation",
+                     "schema": {
+                        "type": "array",
+                        "items": {
+                           "type": "object",
+                           "properties": {
+                              "id_reservation": {
+                                 "type": "integer"
+                              },
+                              "id_client": {
+                                 "type": "integer"
+                              },
+                              "id_room": {
+                                 "type": "integer"
+                              },
+                              "reservation_date": {
+                                 "type": "string",
+                                 "format": "date-time"
+                              },
+                              "start_date": {
+                                 "type": "string",
+                                 "format": "date-time"
+                              },
+                              "end_date": {
+                                 "type": "string",
+                                 "format": "date-time"
+                              },
+                              "status": {
+                                 "type": "string"
+                              }
+                           }
+                        }
+                     }
+                  },
+                  "404": {
+                     "description": "Not found"
+                  },
+                  "500": {
+                     "description": "Internal server error"
+                  }
+               }
+            }
+        },
+        "/clients/reservation/year/{year}": {
+            "get": {
+               "operationId": "clients_reservation_year",
+               "tags": [
+                  "Clients"
+               ],
+               "description": "Récupère les réservations d'un client par son ID pour une année donnée",
+               "parameters": [
+                  {
+                     "name": "year",
+                     "in": "path",
+                     "required": true,
+                     "type": "integer"
+                  }
+               ],
+               "responses": {
+                  "200": {
+                     "description": "successful operation",
+                     "schema": {
+                        "type": "array",
+                        "items": {
+                           "type": "object",
+                           "properties": {
+                              "id_reservation": {
+                                 "type": "integer"
+                              },
+                              "id_client": {
+                                 "type": "integer"
+                              },
+                              "id_room": {
+                                 "type": "integer"
+                              },
+                              "reservation_date": {
+                                 "type": "string",
+                                 "format": "date-time"
+                              },
+                              "start_date": {
+                                 "type": "string",
+                                 "format": "date-time"
+                              },
+                              "end_date": {
+                                 "type": "string",
+                                 "format": "date-time"
+                              },
+                              "status": {
+                                 "type": "string"
+                              }
+                           }
+                        }
+                     }
+                  },
+                  "404": {
+                     "description": "Not found"
+                  },
+                  "500": {
+                     "description": "Internal server error"
+                  }
+               }
+            }
+        }  
+    }
+}
