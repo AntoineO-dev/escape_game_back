@@ -597,23 +597,23 @@
                   "description": "successful operation",
                   "schema": {
                      "type": "object",
-                    "properties": {
-                           "id_escape": {
-                              "type": "integer"
-                           },
-                           "escape_type": {
-                              "type": "string"
-                           },
-                           "price": {
-                              "type": "number"
-                           },
-                           "status": {
-                              "type": "string"
-                           },
-                           "disponibility": {
-                              "type": "boolean"
-                           }
+                     "properties": {
+                        "id_escape": {
+                           "type": "integer"
+                        },
+                        "escape_type": {
+                           "type": "string"
+                        },
+                        "price": {
+                           "type": "number"
+                        },
+                        "status": {
+                           "type": "string"
+                        },
+                        "disponibility": {
+                           "type": "boolean"
                         }
+                     }
                   }
                },
                "404": {
@@ -1226,6 +1226,380 @@
                      "properties": {
                         "total_amount": {
                            "type": "number"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "comment": "Reservations",
+      "/reservations": {
+         "get": {
+            "operationId": "reservations_get",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère la liste de toutes les réservations",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "reservation_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "start_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "end_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "status": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/{id}": {
+         "get": {
+            "operationId": "reservations_findOne",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère une réservation par son ID",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_reservation": {
+                           "type": "integer"
+                        },
+                        "id_client": {
+                           "type": "integer"
+                        },
+                        "id_room": {
+                           "type": "integer"
+                        },
+                        "reservation_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "start_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "end_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "status": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/{reservation_status}": {
+         "get": {
+            "operationId": "reservations_status",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère la liste des réservations en fonction de leur statut",
+            "parameters": [
+               {
+                  "name": "reservation_status",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "reservation_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "start_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "end_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "status": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/escape_game/type/{type}": {
+         "get": {
+            "operationId": "reservations_escape_game_type",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère la liste des réservations pour une escape game donnée",
+            "parameters": [
+               {
+                  "name": "type",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                          
+                           "reservation_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/average_cost": {
+         "get": {
+            "operationId": "reservations_average_cost",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère le coût moyen des réservations",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "average_cost": {
+                           "type": "number"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/above/{total_cost}": {
+         "get": {
+            "operationId": "reservations_above",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère la liste des réservations supérieures à un montant donné",
+            "parameters": [
+               {
+                  "name": "total_cost",
+                  "in": "path",
+                  "required": true,
+                  "type": "number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "reservation_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/below/{total_cost}": {
+         "get": {
+            "operationId": "reservations_below",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère la liste des réservations inférieures à un montant donné",
+            "parameters": [
+               {
+                  "name": "total_cost",
+                  "in": "path",
+                  "required": true,
+                  "type": "number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "reservation_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/clients/best": {
+         "get": {
+            "operationId": "reservations_clients_best",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère la liste des meilleurs clients en fonction du nombre de réservations",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "number_of_reservations": {
+                              "type": "integer"
+                           }
                         }
                      }
                   }
