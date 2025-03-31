@@ -872,7 +872,372 @@
                }
             }
          }
+      },
+      "comment": "payments",
+      "/payments": {
+         "get": {
+            "operationId": "payments_get",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère la liste de tous les paiements",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_payment": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "payment_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "amount": {
+                              "type": "number"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payments/{id}": {
+         "get": {
+            "operationId": "payments_findOne",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère un paiement par son ID",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_payment": {
+                           "type": "integer"
+                        },
+                        "id_client": {
+                           "type": "integer"
+                        },
+                        "id_reservation": {
+                           "type": "integer"
+                        },
+                        "payment_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "amount_paid": {
+                           "type": "number"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payments/paymentsmethod/{payment_method}": {
+         "get": {
+            "operationId": "payments_paymentsmethod",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère la liste des paiements en fonction de leur méthode de paiement",
+            "parameters": [
+               {
+                  "name": "payment_method",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_payment": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "payment_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "amount": {
+                              "type": "number"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payments/above/{amount}": {
+         "get": {
+            "operationId": "payments_above",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère la liste des paiements supérieurs à un montant donné",
+            "parameters": [
+               {
+                  "name": "amount",
+                  "in": "path",
+                  "required": true,
+                  "type": "number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_payment": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "payment_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "amount_paid": {
+                              "type": "number"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payments/below/{amount}": {
+         "get": {
+            "operationId": "payments_below",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère la liste des paiements inférieurs à un montant donné",
+            "parameters": [
+               {
+                  "name": "amount",
+                  "in": "path",
+                  "required": true,
+                  "type": "number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_payment": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "payment_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "amount_paid": {
+                              "type": "number"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payments/total/month/{month}/year/{year}": {
+         "get": {
+            "operationId": "payments_total_month_year",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère le montant total des paiements pour un mois et une année donnés",
+            "parameters": [
+               {
+                  "name": "month",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               },
+               {
+                  "name": "year",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "total_amount": {
+                           "type": "number"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payments/escapegame/{escape_type}": {
+         "get": {
+            "operationId": "payments_escapegame",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère la liste des paiements pour une escape game donnée",
+            "parameters": [
+               {
+                  "name": "escape_type",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_payment": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "payment_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "amount_paid": {
+                              "type": "number"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payments/total/{id_escape}": {
+         "get": {
+            "operationId": "payments_total",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère le montant total des paiements pour une escape game donnée",
+            "parameters": [
+               {
+                  "name": "id_escape",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "total_amount": {
+                           "type": "number"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
       }
-      
    }
 }
