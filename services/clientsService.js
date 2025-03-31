@@ -97,6 +97,18 @@ function getReservationByEscapeRoom(id_escape) {
     });
 }
 
+function createClient(client) {
+    return new Promise((resolve, reject) => {
+        connection.query('INSERT INTO clients (name, email, password) VALUES (?, ?, ?)', [client.name, client.email, client.password], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
 module.exports = {
     getAllClients,
     getClientById,
@@ -105,5 +117,6 @@ module.exports = {
     getReservationAbove,
     getReservationBelow,
     getReservationByEscapeRoom,
-    getReservationByMonth
+    getReservationByMonth,
+    createClient
 };

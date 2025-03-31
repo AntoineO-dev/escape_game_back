@@ -88,6 +88,17 @@ async function getReservationByEscapeRoom (req, res) {
     }
 }
 
+async function createClient (req, res) {
+    try {
+        const client = await clientsService.createClient(req.body);
+        res.status(201);
+        res.send(client);
+    } catch (error) {
+        res.status(500);
+        res.json({'message': 'Une erreur est survenue lors de la création du client'});
+    }
+}
+
 module.exports = {
     getAllClients,
     getClientById,
@@ -96,5 +107,7 @@ module.exports = {
     getReservationAbove,
     getReservationBelow,
     getReservationByEscapeRoom,
-    getReservationByMonth
+    getReservationByMonth,
+    createClient
+        
 };

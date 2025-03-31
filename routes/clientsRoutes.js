@@ -1,10 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const clientsController = require('../controllers/clientsController');
+const authController = require('../controllers/authController');
 
 
 // GET /clients
 router.get('/', (req, res) => {clientsController.getAllClients(req, res)});
+
+//POST /clients
+router.post ('/', authController.verifyToken, (req, res) => {clientsController.createClient(req, res)});
 
 // GET /clients/reservation/:id_client
 router.get('/reservation/:id_client', (req, res) => {clientsController.getReservationByClientId(req, res)});

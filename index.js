@@ -6,15 +6,19 @@ const clientsRoutes = require('./routes/clientsRoutes');
 const paymentsRoutes = require('./routes/paymentsRoutes');
 const reservationsRoutes = require('./routes/reservationsRoutes');
 const escape_gamesRoutes = require('./routes/escape_gamesRoutes');
+const authRoutes = require('./routes/authRoutes');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const cors = require('cors');
 
 app.use(express.json());
+app.use(cors());
 
 app.use('/clients', clientsRoutes);
 app.use('/escape_games', escape_gamesRoutes);
 app.use('/payments', paymentsRoutes);
 app.use('/reservations', reservationsRoutes);
+app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.send('Bienvenue sur mon API');
