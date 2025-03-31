@@ -1,144 +1,91 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "Escape Game API",
-        "description": "API for escape game management",
-        "version": "1.0"
-    },
-    "produces": [
-        "application/json"
-    ],
-    "host": "127.0.0.1:3000",
-    "basePath": "/",
-    "securityDefinitions": {
-        "Bearer": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header",
-            "description": "Entrer le token JWT sous la forme 'Bearer token'"
-        }
-    },
-    "security": [
-        {
-            "Bearer": []
-        }
-    ],
-    "paths": {
-        "comment": "Auth",
-        "/auth/login": {
-            "post": {
-                "operationId": "auth_login",
-                "tags": [
-                    "Auth"
-                ],
-                "description": "Connecte un utilisateur",
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "email": {
-                                    "type": "string"
-                                },
-                                "password": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "token": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }
-        },
-        "comment": "Clients",
-        "/clients": {
-            "get": {
-               "operationId": "clients_get",
-               "tags": [
-                  "Clients"
-               ],
-               "description": "Récupère la liste de tous les clients",
-               "parameters": [],
-               "responses": {
-                  "200": {
-                     "description": "successful operation",
-                     "schema": {
-                        "type": "array",
-                        "items": {
-                           "type": "object",
-                           "properties": {
-                              "id_client": {
-                                 "type": "integer"
-                              },
-                              "first_name": {
-                                 "type": "string"
-                              },
-                              "last_name": {
-                                 "type": "string"
-                              },
-                              "phone": {
-                                 "type": "string"
-                              },
-                              "registration_date": {
-                                 "type": "string",
-                                 "format": "date-time"
-                              },
-                              "email": {
-                                 "type": "string"
-                              }
-                           }
+   "swagger": "2.0",
+   "info": {
+      "title": "Escape Game API",
+      "description": "API for escape game management",
+      "version": "1.0"
+   },
+   "produces": [
+      "application/json"
+   ],
+   "host": "127.0.0.1:3000",
+   "basePath": "/",
+   "securityDefinitions": {
+      "Bearer": {
+         "type": "apiKey",
+         "name": "Authorization",
+         "in": "header",
+         "description": "Entrer le token JWT sous la forme 'Bearer token'"
+      }
+   },
+   "security": [
+      {
+         "Bearer": []
+      }
+   ],
+   "paths": {
+      "comment": "Auth",
+      "/auth/login": {
+         "post": {
+            "operationId": "auth_login",
+            "tags": [
+               "Auth"
+            ],
+            "description": "Connecte un utilisateur",
+            "parameters": [
+               {
+                  "name": "user",
+                  "in": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "email": {
+                           "type": "string"
+                        },
+                        "password": {
+                           "type": "string"
                         }
                      }
-                  },
-                  "404": {
-                     "description": "Not found"
-                  },
-                  "500": {
-                     "description": "Internal server error"
                   }
                }
-            }
-        },
-        "/clients/{id}": {
-            "get": {
-               "operationId": "clients_findOne",
-               "tags": [
-                  "Clients"
-               ],
-               "description": "Récupère un client par son ID",
-               "parameters": [
-                  {
-                     "name": "id",
-                     "in": "path",
-                     "required": true,
-                     "type": "integer"
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "token": {
+                           "type": "string"
+                        }
+                     }
                   }
-               ],
-               "responses": {
-                  "200": {
-                     "description": "successful operation",
-                     "schema": {
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "comment": "Clients",
+      "/clients": {
+         "get": {
+            "operationId": "clients_get",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère la liste de tous les clients",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
                         "type": "object",
                         "properties": {
                            "id_client": {
@@ -162,135 +109,770 @@
                            }
                         }
                      }
-                  },
-                  "404": {
-                     "description": "Not found"
-                  },
-                  "500": {
-                     "description": "Internal server error"
                   }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
                }
             }
-        },
-        "/clients/reservation/{id}": {
-            "get": {
-               "operationId": "clients_reservation",
-               "tags": [
-                  "Clients"
-               ],
-               "description": "Récupère les réservations d'un client par son ID",
-               "parameters": [
-                  {
-                     "name": "id",
-                     "in": "path",
-                     "required": true,
-                     "type": "integer"
+         }
+      },
+      "/clients/{id}": {
+         "get": {
+            "operationId": "clients_findOne",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère un client par son ID",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_client": {
+                           "type": "integer"
+                        },
+                        "first_name": {
+                           "type": "string"
+                        },
+                        "last_name": {
+                           "type": "string"
+                        },
+                        "phone": {
+                           "type": "string"
+                        },
+                        "registration_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "email": {
+                           "type": "string"
+                        }
+                     }
                   }
-               ],
-               "responses": {
-                  "200": {
-                     "description": "successful operation",
-                     "schema": {
-                        "type": "array",
-                        "items": {
-                           "type": "object",
-                           "properties": {
-                              "id_reservation": {
-                                 "type": "integer"
-                              },
-                              "id_client": {
-                                 "type": "integer"
-                              },
-                              "id_room": {
-                                 "type": "integer"
-                              },
-                              "reservation_date": {
-                                 "type": "string",
-                                 "format": "date-time"
-                              },
-                              "start_date": {
-                                 "type": "string",
-                                 "format": "date-time"
-                              },
-                              "end_date": {
-                                 "type": "string",
-                                 "format": "date-time"
-                              },
-                              "status": {
-                                 "type": "string"
-                              }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/clients/reservation/{id}": {
+         "get": {
+            "operationId": "clients_reservation",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère les réservations d'un client par son ID",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "reservation_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "start_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "end_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "status": {
+                              "type": "string"
                            }
                         }
                      }
-                  },
-                  "404": {
-                     "description": "Not found"
-                  },
-                  "500": {
-                     "description": "Internal server error"
                   }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
                }
             }
-        },
-        "/clients/reservation/year/{year}": {
-            "get": {
-               "operationId": "clients_reservation_year",
-               "tags": [
-                  "Clients"
-               ],
-               "description": "Récupère les réservations d'un client par son ID pour une année donnée",
-               "parameters": [
-                  {
-                     "name": "year",
-                     "in": "path",
-                     "required": true,
-                     "type": "integer"
-                  }
-               ],
-               "responses": {
-                  "200": {
-                     "description": "successful operation",
-                     "schema": {
-                        "type": "array",
-                        "items": {
-                           "type": "object",
-                           "properties": {
-                              "id_reservation": {
-                                 "type": "integer"
-                              },
-                              "id_client": {
-                                 "type": "integer"
-                              },
-                              "id_room": {
-                                 "type": "integer"
-                              },
-                              "reservation_date": {
-                                 "type": "string",
-                                 "format": "date-time"
-                              },
-                              "start_date": {
-                                 "type": "string",
-                                 "format": "date-time"
-                              },
-                              "end_date": {
-                                 "type": "string",
-                                 "format": "date-time"
-                              },
-                              "status": {
-                                 "type": "string"
-                              }
+         }
+      },
+      "/clients/reservation/month/{month}": {
+         "get": {
+            "operationId": "clients_reservation_month",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère les réservations d'un client par son ID pour un mois donné",
+            "parameters": [
+               {
+                  "name": "month",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "reservation_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "start_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "end_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "status": {
+                              "type": "string"
                            }
                         }
                      }
-                  },
-                  "404": {
-                     "description": "Not found"
-                  },
-                  "500": {
-                     "description": "Internal server error"
                   }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
                }
             }
-        }  
-    }
+         }
+      },
+      "/clients/reservation/year/{year}": {
+         "get": {
+            "operationId": "clients_reservation_year",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère les réservations d'un client par son ID pour une année donnée",
+            "parameters": [
+               {
+                  "name": "year",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "reservation_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "start_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "end_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "status": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/clients/reservationAbove/{total_cost}": {
+         "get": {
+            "operationId": "clients_reservationAbove",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère les réservations d'un client dont le coût total est supérieur à un montant donné",
+            "parameters": [
+               {
+                  "name": "total_cost",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "reservation_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "start_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "end_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "status": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/clients/reservationBelow/{total_cost}": {
+         "get": {
+            "operationId": "clients_reservationBelow",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère les réservations d'un client dont le coût total est inférieur à un montant donné",
+            "parameters": [
+               {
+                  "name": "total_cost",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "reservation_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "start_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "end_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "status": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/clients/reservation/escaperoom/{id_escape}": {
+         "get": {
+            "operationId": "clients_reservation_escaperoom",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère les réservations d'un client pour une escape room donnée",
+            "parameters": [
+               {
+                  "name": "id_escape",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "reservation_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "start_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "end_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "status": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "comment": "Escape Games",
+      "/escape_games": {
+         "get": {
+            "operationId": "escapegames_get",
+            "tags": [
+               "Escape Games"
+            ],
+            "description": "Récupère la liste de toutes les escape games",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_escape": {
+                              "type": "integer"
+                           },
+                           "escape_type": {
+                              "type": "string"
+                           },
+                           "price": {
+                              "type": "number"
+                           },
+                           "status": {
+                              "type": "string"
+                           },
+                           "disponibility": {
+                              "type": "boolean"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/escape_games/{id}": {
+         "get": {
+            "operationId": "escapegames_findOne",
+            "tags": [
+               "Escape Games"
+            ],
+            "description": "Récupère une escape game par son ID",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                    "properties": {
+                           "id_escape": {
+                              "type": "integer"
+                           },
+                           "escape_type": {
+                              "type": "string"
+                           },
+                           "price": {
+                              "type": "number"
+                           },
+                           "status": {
+                              "type": "string"
+                           },
+                           "disponibility": {
+                              "type": "boolean"
+                           }
+                        }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/escape_games/available": {
+         "get": {
+            "operationId": "escapegames_available",
+            "tags": [
+               "Escape Games"
+            ],
+            "description": "Récupère la liste des escape games disponibles",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_escape": {
+                              "type": "integer"
+                           },
+                           "escape_type": {
+                              "type": "string"
+                           },
+                           "price": {
+                              "type": "number"
+                           },
+                           "status": {
+                              "type": "string"
+                           },
+                           "disponibility": {
+                              "type": "boolean"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/escape_games/numberofplayers/{Number_of_players}": {
+         "get": {
+            "operationId": "escapegames_numberofplayers",
+            "tags": [
+               "Escape Games"
+            ],
+            "description": "Récupère la liste des escape games en fonction du nombre de joueurs",
+            "parameters": [
+               {
+                  "name": "Number_of_players",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_escape": {
+                              "type": "integer"
+                           },
+                           "escape_type": {
+                              "type": "string"
+                           },
+                           "price": {
+                              "type": "number"
+                           },
+                           "status": {
+                              "type": "string"
+                           },
+                           "disponibility": {
+                              "type": "boolean"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/escape_games/priceAbove/{price}": {
+         "get": {
+            "operationId": "escapegames_priceAbove",
+            "tags": [
+               "Escape Games"
+            ],
+            "description": "Récupère la liste des escape games dont le prix est supérieur à un montant donné",
+            "parameters": [
+               {
+                  "name": "price",
+                  "in": "path",
+                  "required": true,
+                  "type": "number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_escape": {
+                              "type": "integer"
+                           },
+                           "escape_type": {
+                              "type": "string"
+                           },
+                           "price": {
+                              "type": "number"
+                           },
+                           "status": {
+                              "type": "string"
+                           },
+                           "disponibility": {
+                              "type": "boolean"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/escape_games/priceBelow/{price}": {
+         "get": {
+            "operationId": "escapegames_priceBelow",
+            "tags": [
+               "Escape Games"
+            ],
+            "description": "Récupère la liste des escape games dont le prix est inférieur à un montant donné",
+            "parameters": [
+               {
+                  "name": "price",
+                  "in": "path",
+                  "required": true,
+                  "type": "number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_escape": {
+                              "type": "integer"
+                           },
+                           "escape_type": {
+                              "type": "string"
+                           },
+                           "price": {
+                              "type": "number"
+                           },
+                           "status": {
+                              "type": "string"
+                           },
+                           "disponibility": {
+                              "type": "boolean"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/escape_games/status/{status}": {
+         "get": {
+            "operationId": "escapegames_status",
+            "tags": [
+               "Escape Games"
+            ],
+            "description": "Récupère la liste des escape games en fonction de leur statut",
+            "parameters": [
+               {
+                  "name": "status",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_escape": {
+                              "type": "integer"
+                           },
+                           "escape_type": {
+                              "type": "string"
+                           },
+                           "price": {
+                              "type": "number"
+                           },
+                           "status": {
+                              "type": "string"
+                           },
+                           "disponibility": {
+                              "type": "boolean"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      }
+      
+   }
 }

@@ -6,12 +6,11 @@ const clientsController = require('../controllers/clientsController');
 // GET /clients
 router.get('/', (req, res) => {clientsController.getAllClients(req, res)});
 
-
-// GET /clients/:id_client
-router.get('/:id_client', (req, res) => {clientsController.getClientById(req, res)});
-
 // GET /clients/reservation/:id_client
 router.get('/reservation/:id_client', (req, res) => {clientsController.getReservationByClientId(req, res)});
+
+// GET /clients/reservation/month/:month
+router.get('/reservation/month/:month', (req, res) => {clientsController.getReservationByMonth(req, res)});
 
 // GET /clients/reservation/year/:year
 router.get('/reservation/year/:year', (req, res) => {clientsController.getReservationByYear(req, res)});
@@ -29,6 +28,8 @@ router.get('/reservation/escaperoom/:id_escape', (req, res) => {clientsControlle
 
 
 
+// GET /clients/:id_client
+router.get('/:id_client', (req, res) => {clientsController.getClientById(req, res)});
 
 
 module.exports = router;

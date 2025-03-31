@@ -36,6 +36,19 @@ function getReservationByClientId(id_client) {
     });
 }
 
+function getReservationByMonth(month) {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM reservations WHERE MONTH(reservation_date) = ?', [month], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
+
 function getReservationByYear(year) {
     return new Promise((resolve, reject) => {
         connection.query('SELECT * FROM reservations WHERE YEAR(reservation_date) = ?', [year], (error, results) => {
@@ -50,7 +63,7 @@ function getReservationByYear(year) {
 
 function getReservationAbove(total_cost) {
     return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM reservations WHERE total_cost > ?', [total_cost], (error, results) => {
+        connection.query('SELECT * FROM reservations WHERE total_cost >= ?', [total_cost], (error, results) => {
             if (error) {
                 reject(error);
             } else {
@@ -62,7 +75,7 @@ function getReservationAbove(total_cost) {
 
 function getReservationBelow(total_cost) {
     return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM reservations WHERE total_cost < ?', [total_cost], (error, results) => {
+        connection.query('SELECT * FROM reservations WHERE total_cost <= ?', [total_cost], (error, results) => {
             if (error) {
                 reject(error);
             } else {
@@ -91,5 +104,6 @@ module.exports = {
     getReservationByYear,
     getReservationAbove,
     getReservationBelow,
-    getReservationByEscapeRoom
+    getReservationByEscapeRoom,
+    getReservationByMonth
 };

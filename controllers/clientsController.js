@@ -33,6 +33,17 @@ async function getReservationByClientId (req, res) {
     }
 }
 
+async function getReservationByMonth (req, res) {
+    try {
+        const reservations = await clientsService.getReservationByMonth(req.params.month);
+        res.status(200);
+        res.send(reservations);
+    } catch (error) {
+        res.status(500);
+        res.json({'message': 'Une erreur est survenue lors de la récupération des réservations'});
+    }
+}
+
 async function getReservationByYear (req, res) {
     try {
         const reservations = await clientsService.getReservationByYear(req.params.year);
@@ -83,5 +94,7 @@ module.exports = {
     getReservationByClientId,
     getReservationByYear,
     getReservationAbove,
-    getReservationBelow
+    getReservationBelow,
+    getReservationByEscapeRoom,
+    getReservationByMonth
 };
